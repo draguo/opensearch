@@ -1,0 +1,25 @@
+{
+  "name": "draguo/opensearch",
+  "description": "aliyun opensearch",
+  "require": {
+    "php": ">=5.5.9",
+    "guzzlehttp/guzzle": "^6.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Draguo\\Opensearch\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Draguo\\Opensearch\\Tests\\": "tests"
+    }
+  },
+  "authors": [
+    {
+      "name": "draguo",
+      "email": "draguo@sina.com"
+    }
+  ],
+  "license": "MIT"
+}
