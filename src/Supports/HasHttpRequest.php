@@ -12,6 +12,7 @@ trait HasHttpRequest
 
     protected $middlewares = [];
     protected $handlerStack;
+    protected static $defaults = [];
 
     /**
      * Add a middleware.

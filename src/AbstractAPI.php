@@ -5,7 +5,8 @@
 
 namespace Draguo\Opensearch;
 
-
+use Draguo\Opensearch\Exceptions\Exception;
+use Draguo\Opensearch\Supports\Config;
 use Draguo\Opensearch\Supports\HasHttpRequest;
 use Psr\Http\Message\RequestInterface;
 
@@ -15,10 +16,32 @@ abstract class AbstractAPI
 
     protected $config;
 
+    public function __construct(array $config)
+    {
+        $this->config = new Config($config);
+    }
+
+    public function get($api, $query, $options = [])
+    {
+        $options['query'] = $query;
+        return $this->requestJSON('GET', $api, $options);
+    }
+
     public function requestJSON($method, $api, $options)
     {
+        $api = $this->config->get('host') . $api;
         $this->pushMiddleware($this->addAuthorization($this->config->get('app_id'), $this->config->get('secret')));
-        return $this->request($method, $api, $options);
+
+        $response = $this->request($method, $api, $options)->getBody();
+        return $this->checkHasErrors(json_decode(strval($response), true));
+    }
+
+    private function checkHasErrors($result)
+    {
+        if (isset($result['errors'])) {
+            throw new Exception(json_encode($result['errors']), 500);
+        }
+        return $result;
     }
 
     public function addAuthorization($id, $secret)
