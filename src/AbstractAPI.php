@@ -21,13 +21,13 @@ abstract class AbstractAPI
         $this->config = new Config($config);
     }
 
-    public function get($api, $query, $options = [])
+    protected function get($api, $query, $options = [])
     {
         $options['query'] = $query;
         return $this->requestJSON('GET', $api, $options);
     }
 
-    public function requestJSON($method, $api, $options)
+    protected function requestJSON($method, $api, $options)
     {
         $api = $this->config->get('host') . $api;
         $this->pushMiddleware($this->addAuthorization($this->config->get('app_id'), $this->config->get('secret')));
@@ -44,7 +44,7 @@ abstract class AbstractAPI
         return $result;
     }
 
-    public function addAuthorization($id, $secret)
+    protected function addAuthorization($id, $secret)
     {
         return function (callable $handler) use ($id, $secret) {
             return function (

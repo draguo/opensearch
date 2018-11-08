@@ -22,7 +22,7 @@ trait HasHttpRequest
      *
      * @return $this
      */
-    public function pushMiddleware(callable $middleware, $name = null)
+    protected function pushMiddleware(callable $middleware, $name = null)
     {
         if (!is_null($name)) {
             $this->middlewares[$name] = $middleware;
@@ -102,7 +102,7 @@ trait HasHttpRequest
      *
      * @return \GuzzleHttp\HandlerStack
      */
-    public function getHandlerStack()
+    protected function getHandlerStack()
     {
         if ($this->handlerStack) {
             return $this->handlerStack;
