@@ -1,4 +1,5 @@
 <?php
+
 /**
  * author: draguo
  */
@@ -7,6 +8,18 @@ namespace Draguo\Opensearch;
 
 class Opensearch extends AbstractAPI
 {
+
+    /**
+     * 
+     */
+    public function search($query)
+    {
+        $app_name = $this->config->get('app_name');
+
+        return $this->get("/v3/openapi/apps/{$app_name}/search", [
+            'query' => $query,
+        ]);
+    }
 
     /**
      * 搜索下拉提示
