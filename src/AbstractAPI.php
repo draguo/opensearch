@@ -1,4 +1,5 @@
 <?php
+
 /**
  * author: draguo
  */
@@ -38,7 +39,7 @@ abstract class AbstractAPI
 
     private function checkHasErrors($result)
     {
-        if (isset($result['errors'])) {
+        if (!empty($result['errors'])) {
             throw new Exception(json_encode($result['errors']), 500);
         }
         return $result;
