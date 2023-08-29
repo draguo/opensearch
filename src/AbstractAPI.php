@@ -87,7 +87,7 @@ abstract class AbstractAPI
         $resource = str_replace('%2F', '/', rawurlencode($params['request_path']));
         parse_str($params['query'], $query);
         uksort($query, 'strnatcasecmp');
-        $queryString = http_build_query($query);
+        $queryString = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
         $canonicalizedResource = $resource;
 
         if (!empty($queryString)) {
